@@ -15,8 +15,9 @@ class Home extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 213, 150, 13),
       ),
-      body: Row(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text("hello world"),
           TextButton(
