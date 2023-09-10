@@ -1,57 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/quote.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: Home(),
+    home: QuoteList(),
   ));
 }
 
-class Home extends StatelessWidget {
+class QuoteList extends StatefulWidget {
+  const QuoteList({super.key});
+
+  @override
+  State<QuoteList> createState() => _QuoteListState();
+}
+
+class _QuoteListState extends State<QuoteList> {
+  List<Quote> quotes = [
+    Quote(text: 'The only thing we have ', author: 'author 1'),
+    Quote(text: 'The truth will set you free', author: 'author 2'),
+    Quote(text: 'Three can keep a secret', author: 'author 3'),
+    Quote(text: 'The greatest glory in living lies ', author: 'author 4'),
+  ];
+
+  Widget quoteTemplete(quote) {
+    return Card(
+      margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              quote.text,
+              style: TextStyle(fontSize: 18, color: Colors.grey[600]),
+            ),
+            SizedBox(height: 6),
+            Text(
+              quote.author,
+              style: TextStyle(fontSize: 14, color: Colors.grey[800]),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('This is title'),
+        title: Text('Title of the app'),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 213, 150, 13),
+        backgroundColor: Colors.redAccent,
       ),
-      body: Row(
-        children: [
-          Expanded(child: Image.asset('cartoon.png')),
-          Expanded(
-            flex: 3,
-            child: Container(
-              padding: EdgeInsets.all(30.0),
-              color: Colors.cyan,
-              child: Text('1'),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              padding: EdgeInsets.all(30.0),
-              color: Colors.pink,
-              child: Text('2'),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              padding: EdgeInsets.all(30.0),
-              color: Colors.amber,
-              child: Text('3'),
-            ),
-          )
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print('button pressed');
-        },
-        backgroundColor: Colors.deepOrangeAccent,
-        child: const Text(
-          'click',
-        ),
+      body: Column(
+        children: quotes.map((quote) => quoteTemplete(quote)).toList(),
       ),
     );
   }
